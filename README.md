@@ -24,3 +24,10 @@ Poderia ter usado uma camada de Aplicação (Application) para controlar a lógi
 Domain: Responsável pela modelagem das Entidades.
 Api: Responsável pelas rotas e lógica do negócio.
 Infra: Responsável por comunicar com o banco de dados e persistir as entidades.
+
+## Postman - Collection
+
+Usei o Postman para documentação da API.
+Ao acessar o link irão encontrar os métodos e a descrição de funcionamento.
+
+https://www.getpostman.com/collections/5f8e62347b46c808639c
