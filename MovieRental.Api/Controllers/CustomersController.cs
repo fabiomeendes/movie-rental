@@ -23,10 +23,9 @@ namespace RentalTest.Controllers
         }
    
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<List<Customer>> Get()
         {
-            return Ok(_customerRepository.ListCustomers());
-
+            return Ok(new RequestDTO<List<Customer>> { Data = _customerRepository.ListCustomers().ToList() });
         }
 
         [HttpPost]
@@ -38,7 +37,7 @@ namespace RentalTest.Controllers
 
             if (c != null && c.Count() > 0)
             {
-                return BadRequest(new RequestDTO { Status = HttpStatusCode.BadRequest, Message = "Customer already exists" });
+                return BadRequest(new RequestDTO<Customer> { Status = HttpStatusCode.BadRequest, Message = "Customer already exists" });
             }
 
             _customerRepository.CreateCustomer(new Customer
@@ -48,7 +47,7 @@ namespace RentalTest.Controllers
                 IsActive = true
             });
 
-            return Ok(new RequestDTO { Status = HttpStatusCode.Created, Message = "Data Successfully" });
+            return Ok(new RequestDTO<Customer> { Status = HttpStatusCode.Created, Message = "Data Successfully" });
         }
 
         [HttpDelete("{customerId}")]
@@ -58,7 +57,7 @@ namespace RentalTest.Controllers
             customer.IsActive = false;
             _customerRepository.DeleteCustomer(customer);
 
-            return Ok(new RequestDTO { Status = HttpStatusCode.OK, Message = "Data Successfully" });
+            return Ok(new RequestDTO<Customer> { Status = HttpStatusCode.OK, Message = "Data Successfully" });
         }
     }
 }

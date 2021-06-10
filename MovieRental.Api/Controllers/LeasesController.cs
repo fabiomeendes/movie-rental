@@ -22,16 +22,13 @@ namespace RentalTest.Controllers
             _leaseRepository = leaseRepository;
         }
 
-        // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<List<Lease>> Get()
         {
-            // TODO
-            var movies = _leaseRepository.ListLeases();
-            return Ok(movies);
+            var leases = _leaseRepository.ListLeases();
+            return Ok(new RequestDTO<List<Lease>> { Data = leases.ToList(), Status = HttpStatusCode.OK, Message = "Data Successfully" });
         }
 
-        // POST api/values
         [HttpPost]
         public ActionResult Post([FromBody] LeaseDTO model)
         {
@@ -41,7 +38,7 @@ namespace RentalTest.Controllers
 
             if (m == null || m.Count() <= 0)
             {
-                return BadRequest(new RequestDTO { Status = HttpStatusCode.BadRequest, Message = "Movie is not available or do not exist" });
+                return BadRequest(new RequestDTO<Lease> { Status = HttpStatusCode.BadRequest, Message = "Movie is not available or do not exist" });
             }
 
             _leaseRepository.CreateLease(new Lease
@@ -56,10 +53,9 @@ namespace RentalTest.Controllers
             movie.IsRent = true;
             _movieRepository.UpdateMovie(movie);
 
-            return Ok(new RequestDTO { Status = HttpStatusCode.Created, Message = "Data Successfully" });
+            return Ok(new RequestDTO<Lease> { Status = HttpStatusCode.Created, Message = "Data Successfully" });
         }
 
-        // POST api/values
         [HttpPost("return")]
         public ActionResult ReturnMovie([FromBody] LeaseDTO model)
         {
@@ -69,7 +65,7 @@ namespace RentalTest.Controllers
 
             if (m == null || m.Count() <= 0)
             {
-                return BadRequest(new RequestDTO { Status = HttpStatusCode.BadRequest, Message = "Movie is not available, do not exist or already returned" });
+                return BadRequest(new RequestDTO<Lease> { Status = HttpStatusCode.BadRequest, Message = "Movie is not available, do not exist or already returned" });
             }
 
             var leases = _leaseRepository.ListLeases();
@@ -86,7 +82,7 @@ namespace RentalTest.Controllers
                 return Ok("Movie return is late");
             }
 
-            return Ok(new RequestDTO { Status = HttpStatusCode.OK, Message = "Data Successfully" });
+            return Ok(new RequestDTO<Lease> { Status = HttpStatusCode.OK, Message = "Data Successfully" });
         }
     }
 }

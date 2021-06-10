@@ -20,15 +20,13 @@ namespace RentalTest.Controllers
             _movieRepository = movieRepository;
         }
 
-        // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<List<Movie>> Get()
         {
             var movies = _movieRepository.ListMovies();
-            return Ok(movies);
+            return Ok(new RequestDTO<List<Movie>> { Data = movies.ToList(), Status = HttpStatusCode.OK, Message = "Data Successfully" });
         }
 
-        // POST api/values
         [HttpPost]
         public ActionResult Post([FromBody] Movie model)
         {
@@ -42,13 +40,7 @@ namespace RentalTest.Controllers
                 IsActive = true
             });
 
-            return Ok(new RequestDTO { Status = HttpStatusCode.Created, Message = "Data Successfully" });
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Ok(new RequestDTO<Movie> { Status = HttpStatusCode.Created, Message = "Data Successfully" });
         }
     }
 }
