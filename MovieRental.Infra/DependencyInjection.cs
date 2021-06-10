@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
@@ -13,13 +10,9 @@ namespace Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            //if (configuration.GetValue<bool>("UseInMemoryDatabase"))
-            //{
-            //    services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("CleanArchitectureDb"));
-            //}
-
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<ILeaseRepository, LeaseRepository>();
         }
     }
 }

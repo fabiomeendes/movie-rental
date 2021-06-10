@@ -32,11 +32,9 @@ namespace MovieRental.Api
             //{
             //    services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("CleanArchitectureDb"));
             //}
+            
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseInMemoryDatabase());
-
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IMovieRepository, MovieRepository>();
-            services.AddScoped<ILeaseRepository, LeaseRepository>();
+            services.AddInfrastructure(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
