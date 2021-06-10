@@ -22,7 +22,6 @@ namespace RentalTest.Controllers
             _customerRepository = customerRepository;
         }
    
-        // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
@@ -30,7 +29,6 @@ namespace RentalTest.Controllers
 
         }
 
-        // POST api/values
         [HttpPost]
         public ActionResult Post([FromBody] CustomerDTO model)
         {
@@ -53,7 +51,6 @@ namespace RentalTest.Controllers
             return Ok(new RequestDTO { Status = HttpStatusCode.Created, Message = "Data Successfully" });
         }
 
-        // DELETE api/values/5
         [HttpDelete("{customerId}")]
         public ActionResult Delete(int customerId)
         {
